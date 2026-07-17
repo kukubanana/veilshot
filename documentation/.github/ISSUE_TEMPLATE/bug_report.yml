@@ -1,0 +1,45 @@
+name: Bug report
+description: Report a reproducible Veilshot problem
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: "Do not upload screenshots containing private information."
+  - type: input
+    id: version
+    attributes:
+      label: Veilshot version
+      placeholder: "0.2.1"
+    validations:
+      required: true
+  - type: input
+    id: system
+    attributes:
+      label: Distribution, desktop, and session
+      placeholder: "Pop!_OS 22.04, GNOME, X11"
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Sanitized logs
+      description: Remove names, private paths, screenshot contents, and other sensitive data.

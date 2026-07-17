@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-label="Veilshot">
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M45 92V45h47" stroke="#202124" stroke-width="24"/>
+    <path d="M164 45h47v47" stroke="#8B5CF6" stroke-width="24"/>
+    <path d="M45 164v47h47" stroke="#202124" stroke-width="24"/>
+    <path d="M164 211h47v-47" stroke="#202124" stroke-width="24"/>
+    <path d="M85 178L177 86M131 86h46v46" stroke="#202124" stroke-width="25"/>
+  </g>
+</svg>

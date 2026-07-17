@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Veilshot Tray
+Comment=Keep Veilshot available in the system tray
+Exec=@VEILSHOT_LAUNCHER@ --tray
+Icon=veilshot
+Terminal=false
+X-GNOME-Autostart-enabled=true
+NoDisplay=true
+StartupNotify=false

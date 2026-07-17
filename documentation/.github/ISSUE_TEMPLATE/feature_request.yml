@@ -1,0 +1,32 @@
+name: Focused feature request
+description: Propose an improvement to the core 5–8 second workflow
+title: "[Feature]: "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: User problem
+      description: Describe the repeated problem, not only the proposed control.
+    validations:
+      required: true
+  - type: textarea
+    id: current
+    attributes:
+      label: Current workflow
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Smallest useful change
+    validations:
+      required: true
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Scope
+      options:
+        - label: This improves the core capture/annotate/copy flow.
+        - label: This does not require turning Veilshot into a general image editor.
+        - label: This can work without a settings screen.

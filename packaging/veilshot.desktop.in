@@ -1,0 +1,19 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Veilshot
+GenericName=Screenshot Tool
+Comment=Keep Veilshot ready in the tray
+Exec=@VEILSHOT_LAUNCHER@ --tray
+TryExec=@VEILSHOT_LAUNCHER@
+Icon=veilshot
+Terminal=false
+Categories=Utility;Graphics;
+Keywords=screenshot;capture;annotation;redaction;
+StartupNotify=false
+Actions=Capture;
+
+[Desktop Action Capture]
+Name=Сделать скриншот
+Exec=@VEILSHOT_LAUNCHER@
+Icon=veilshot
