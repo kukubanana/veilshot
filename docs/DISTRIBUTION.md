@@ -17,8 +17,9 @@ A repository alone does not make Veilshot easy for non-technical users, but it i
 Recommended repository setup:
 
 - Repository name: `veilshot`.
-- Short description: `Minimal privacy-first screenshot annotation for Linux X11.`
-- Topics: `linux`, `screenshot`, `x11`, `pyside6`, `qt`, `privacy`, `redaction`.
+- Short description: `Minimal privacy-first screenshot annotation for Linux.`
+- Topics: `linux`, `screenshot`, `wayland`, `pipewire`, `x11`, `pyside6`,
+  `qt`, `privacy`, `redaction`.
 - Public license: confirm MIT and brand-asset policy before publishing.
 - Enable Issues and Discussions only if the maintainer is ready to review them.
 - Protect the default branch after CI is configured.
@@ -27,8 +28,9 @@ Recommended repository setup:
 
 Publish a tagged pre-release for technically confident testers. State prominently:
 
-- X11 only.
-- Verified on Pop!_OS 22.04.
+- Fedora GNOME Wayland is the primary verified target.
+- Fedora shows its monitor permission dialog for every capture.
+- Pop!_OS 22.04 X11 remains a compatibility path.
 - System packages may be required.
 - The current installer uses a project-local Python virtual environment.
 

@@ -15,10 +15,11 @@ The roadmap is deliberately narrow. Items move into implementation only after re
 
 ## Milestone B — Public GitHub alpha
 
-- [ ] Create public repository.
+- [x] Create public repository.
 - [ ] Add repository description, topics, screenshots, and demo GIF/video.
-- [ ] Configure CI.
-- [ ] Publish `v0.2.1-alpha.1` or a newer tested tag.
+- [x] Configure CI.
+- [x] Publish the initial X11 alpha tag.
+- [ ] Publish the Fedora Wayland `v0.3.0` tag.
 - [ ] Provide source install instructions and known limitations.
 - [ ] Recruit a small group of X11 testers.
 - [ ] Triage first external issues.
@@ -34,7 +35,7 @@ The roadmap is deliberately narrow. Items move into implementation only after re
 
 ## Later evaluation
 
-- [ ] Wayland capture backend.
+- [x] Fedora GNOME Wayland capture backend.
 - [ ] Broader desktop compatibility.
 - [ ] Mixed-DPI and multi-monitor robustness.
 

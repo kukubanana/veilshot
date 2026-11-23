@@ -3,8 +3,9 @@
 ## Requirements
 
 - Linux with Python 3.10 or newer.
-- Qt/X11 runtime libraries.
-- An X11 session for real capture testing.
+- Fedora GNOME Wayland or a compatible X11 desktop.
+- On Fedora Wayland: PyGObject, GStreamer PipeWire/video plugins, and
+  `wl-clipboard` as listed in the README.
 
 Pop!_OS 22.04 packages encountered on the original machine:
 
@@ -24,6 +25,9 @@ python3 -m venv .venv
 .venv/bin/python -m pip install --upgrade pip
 .venv/bin/pip install -e '.[dev]'
 ```
+
+On Fedora, `./setup.sh` checks the host capture and clipboard dependencies
+before preparing the virtual environment.
 
 ## Run
 

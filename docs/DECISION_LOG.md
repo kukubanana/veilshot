@@ -24,6 +24,9 @@
 
 **Reason:** This reduced the first implementation risk and produced a working MVP quickly.
 
+**Status:** Superseded for the primary platform by D-010; the X11 backend is
+retained for compatibility.
+
 ## D-005 — PySide6 / Qt Widgets
 
 **Decision:** Use Python and PySide6 rather than Rust, C++, Electron, or a web stack.
@@ -53,3 +56,16 @@
 **Decision:** First public milestone should be a repository and source alpha for testers. Store packaging follows after broader testing and a reproducible release process.
 
 **Reason:** A store package increases maintenance, metadata, sandboxing, and compatibility obligations.
+
+## D-010 — ScreenCast Portal and PipeWire for Fedora Wayland capture
+
+**Decision:** Use `org.freedesktop.portal.ScreenCast` to obtain an approved
+PipeWire stream. Create a fresh session and show Fedora's monitor permission
+dialog for every capture.
+
+**Reason:** A one-frame spike succeeded on Fedora Workstation 45 GNOME Wayland
+and preserves the future Flatpak boundary. Session persistence and restore
+tokens add background lifecycle and permission-state complexity that the
+maintainer does not want in the first Fedora version. Captured frames enter the
+existing editor as in-memory Qt images; no intermediate screenshot file is
+created.

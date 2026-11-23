@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import argparse
-import os
 import sys
 from pathlib import Path
 
@@ -9,7 +8,7 @@ from pathlib import Path
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="veilshot",
-        description="Minimal screenshot annotation for Linux X11.",
+        description="Minimal screenshot annotation for Linux Wayland and X11.",
     )
     parser.add_argument(
         "--edit",
@@ -51,14 +50,6 @@ def main(argv: list[str] | None = None) -> int:
         from veilshot.tray import run_tray
 
         return run_tray()
-
-    if args.edit is None and os.environ.get("XDG_SESSION_TYPE", "").lower() == "wayland":
-        print(
-            "Veilshot 0.2 supports screenshot capture on X11 only. "
-            "Use --edit on Wayland, or log into an X11 session.",
-            file=sys.stderr,
-        )
-        return 3
 
     from veilshot.application import run
 

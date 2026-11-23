@@ -2,9 +2,9 @@
 
 ## Product
 
-**Name:** Veilshot  
-**Status:** early alpha  
-**Primary platform:** Linux X11, initially Pop!_OS 22.04 / GNOME
+**Name:** Veilshot
+**Status:** Fedora Wayland source release
+**Primary platform:** Fedora Workstation / GNOME / Wayland
 
 ## Problem
 
@@ -29,7 +29,8 @@ Global shortcut
 
 ### Capture
 
-- Capture the monitor under the pointer.
+- On Wayland, let the user approve one monitor through the system Portal.
+- On X11, capture the monitor under the pointer.
 - Show a frozen full-screen representation.
 - Allow one rectangular selection within that monitor.
 - Do not write an automatic capture file.
@@ -68,7 +69,6 @@ Global shortcut
 
 ## Out of scope for the current product
 
-- Wayland capture.
 - Cross-monitor selection.
 - Capture history.
 - Text and freehand tools.
@@ -78,11 +78,12 @@ Global shortcut
 - Accounts and synchronization.
 - Plugin architecture.
 
-## Success criteria for the next public alpha
+## Success criteria for the Fedora release
 
-- Installation succeeds from documented steps on at least three X11 systems.
+- Installation succeeds from documented steps on Fedora Workstation.
 - Core capture/copy flow works in browser and at least one messenger.
 - Redaction export regression tests remain green.
 - No private screenshots are included in repository or test assets.
 - A user can install without editing source files.
 - Known limitations are visible before download.
+- The system permission dialog is shown for each Wayland capture.

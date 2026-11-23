@@ -2,7 +2,9 @@
 
 ## Supported system
 
-Current verified target: Pop!_OS 22.04 / GNOME on X11.
+Current verified target: Fedora Workstation 45 / GNOME on Wayland.
+
+The previous Pop!_OS 22.04 / GNOME / X11 path remains available.
 
 Check the session:
 
@@ -10,7 +12,8 @@ Check the session:
 echo "$XDG_SESSION_TYPE"
 ```
 
-Screenshot capture currently requires `x11`.
+Both `wayland` and `x11` are supported. Fedora Wayland requires the system
+packages listed in the README.
 
 ## Start capture
 
@@ -22,9 +25,9 @@ Use the configured global shortcut, select Veilshot from the application menu's 
 
 ## Basic flow
 
-1. Move the pointer to the monitor you want to capture.
-2. Start Veilshot.
-3. Drag to select a rectangular region.
+1. Start Veilshot.
+2. On Wayland, select one monitor in Fedora's permission dialog.
+3. Drag to select a rectangular region on the frozen image.
 4. Use an annotation tool or copy immediately.
 5. Press `Ctrl+C` or `Enter`.
 6. Paste into another application.
@@ -55,6 +58,6 @@ Use the opaque redaction tool for sensitive information. Highlighting is translu
 
 ## Known limitations
 
-- X11 only.
-- One monitor per capture.
+- Fedora shows the monitor permission dialog for every Wayland capture.
+- One selected monitor per capture.
 - No text, freehand drawing, OCR, blur, history, or cloud upload.

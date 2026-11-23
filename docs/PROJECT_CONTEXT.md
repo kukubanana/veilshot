@@ -48,6 +48,13 @@ These commands were required because Pop!_OS lacked Python venv support and Qt's
 
 ## Current verified behavior
 
+- Fedora Workstation 45 GNOME Wayland capture works through ScreenCast Portal
+  and PipeWire.
+- Fedora presents its monitor permission dialog for every capture by design.
+- A selected Wayland monitor is transferred to the editor without a temporary
+  screenshot file.
+- The final `image/png` remains available in the Wayland clipboard after the
+  Veilshot GUI exits.
 - Capture and overlay work on the target X11 machine.
 - Arrow, highlight, and redaction render and export.
 - Clipboard copying works in real use.
@@ -82,10 +89,11 @@ The source is currently marked MIT. Trademark and final name/logo ownership chec
 
 ## Current product maturity
 
-Status: early alpha / personal working MVP.
+Status: Fedora Wayland source release / personal working MVP.
 
 It is usable by the maintainer but not yet ready for a store submission because broader environment testing, packaging, support documentation, and a reproducible release process still need to be completed.
 
 ## Next recommended milestone
 
-Create a public GitHub repository and a source release for technically confident early testers. Collect issues before investing in Flathub packaging and broader compatibility.
+Collect Fedora GNOME Wayland feedback, especially for scaling and multiple
+monitors, before investing in Flatpak packaging and broader desktop support.

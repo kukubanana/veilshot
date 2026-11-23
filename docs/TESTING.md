@@ -20,15 +20,20 @@ The suite should cover:
 - Icon/resource availability.
 - Desktop entry generation.
 - Tray command and duplicate-process logic where practical.
+- Wayland/X11 backend selection.
+- Portal helper PNG decoding and failure propagation.
+- Wayland clipboard PNG publication.
 
-Do not treat offscreen tests as proof that real X11 capture, tray display, clipboard ownership, or mixed-DPI behavior works.
+Do not treat offscreen tests as proof that real Portal permission, PipeWire
+capture, X11 capture, tray display, clipboard ownership, or mixed-DPI behavior
+works.
 
 ## Required manual smoke test
 
 For each release candidate:
 
 1. Start capture with the global shortcut.
-2. Capture the monitor under the pointer.
+2. On Wayland, approve one monitor in the system dialog.
 3. Select a region.
 4. Copy without annotations.
 5. Add an arrow.
@@ -44,7 +49,8 @@ For each release candidate:
 15. Start capture from the tray.
 16. Exit and restart tray mode.
 17. Log out and confirm tray autostarts after login.
-18. Test the external monitor when available.
+18. Start a second capture and confirm the permission dialog appears again.
+19. Test the external monitor when available.
 
 ## Privacy regression check
 
@@ -54,8 +60,8 @@ Use a generated test image, cover a known pixel region with opaque redaction, ex
 
 Minimum suggested systems:
 
-- Pop!_OS 22.04 GNOME X11 — primary.
-- Ubuntu 22.04 GNOME X11.
-- One additional X11 desktop/distribution.
+- Fedora Workstation 45 GNOME Wayland — primary.
+- Pop!_OS 22.04 GNOME X11 — compatibility.
+- One additional Fedora GNOME Wayland machine.
 
 Record Python, Qt, monitor count, scaling, tray support, and results.

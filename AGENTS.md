@@ -8,12 +8,15 @@ Veilshot is a deliberately small, privacy-first screenshot annotation tool for L
 
 ## Current verified state
 
-- Version: `0.2.1`
-- Primary target: Pop!_OS 22.04, GNOME, X11
+- Version: `0.3.0`
+- Primary target: Fedora Workstation 45, GNOME, Wayland
 - Python: 3.10+
 - GUI: PySide6 / Qt Widgets
-- The application launcher, tray icon, autostart, and GNOME custom shortcut have been manually verified on the maintainer's Pop!_OS machine.
-- The current automated suite contains 14 tests in the documented 0.2.1 source package. Always report the number actually produced by the local run; never hard-code an expected count in user-facing instructions.
+- Portal/PipeWire capture, region selection, editor handoff, Enter-to-copy, and
+  persistent `image/png` Wayland clipboard output have been manually verified
+  on Fedora Workstation 45.
+- Always report the number actually produced by the local test run; never
+  hard-code an expected count in user-facing instructions.
 
 ## Product principles
 
@@ -30,13 +33,15 @@ Veilshot is a deliberately small, privacy-first screenshot annotation tool for L
 
 Implemented:
 
+- Capture one user-approved monitor on Fedora GNOME Wayland through ScreenCast
+  Portal and PipeWire.
 - Capture the monitor under the pointer on X11.
 - Freeze the screen in a full-screen overlay.
 - Select one region within one monitor.
 - Arrow, translucent highlight, opaque redaction.
 - White, black, red, yellow, and eyedropper color choices.
 - Move, resize, select, delete, undo, redo.
-- Copy a flattened image to the X11 clipboard.
+- Copy a flattened image to the Wayland or X11 clipboard.
 - Save PNG with a system file dialog.
 - Tray mode with Capture and Exit.
 - Pop!_OS application launcher, icon, and login autostart.
@@ -44,7 +49,6 @@ Implemented:
 
 Intentionally not implemented:
 
-- Wayland capture.
 - Cross-monitor selection.
 - Text, freehand drawing, blur, pixelation, OCR, history.
 - Settings window, accounts, network features, plugins.

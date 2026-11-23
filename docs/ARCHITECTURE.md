@@ -18,7 +18,8 @@ veilshot --version       Print version
 ```text
 CLI
 → application.run()
-→ X11CaptureBackend.capture_screen_under_cursor()
+→ capture_backend_for_session()
+→ PortalCaptureBackend (Wayland) or X11CaptureBackend
 → OverlayWindow
 → annotation model and commands
 → exporter
@@ -41,9 +42,12 @@ A `QLockFile` prevents duplicate tray processes. The tray is a launcher; capture
 ### `capture/`
 
 - `base.py`: capture abstraction.
-- `x11.py`: current Qt/X11 implementation that captures the screen under the pointer.
-
-A future Wayland backend should be added behind the same abstraction rather than mixed into editor code.
+- `portal.py`: invokes the host helper and converts its in-memory PNG into a Qt
+  pixmap.
+- `_portal_helper.py`: ScreenCast Portal requests, restricted PipeWire remote,
+  and one-frame GStreamer pipeline. It writes PNG bytes to stdout and never
+  creates a screenshot file.
+- `x11.py`: Qt/X11 implementation that captures the screen under the pointer.
 
 ### `editor/`
 
@@ -56,7 +60,8 @@ A future Wayland backend should be added behind the same abstraction rather than
 ### `services/`
 
 - `exporter.py`: flattened image generation.
-- `clipboard.py`: X11 clipboard lifetime management.
+- `clipboard.py`: Wayland `wl-copy` publication and X11 clipboard lifetime
+  management.
 - `filename.py`: default screenshot filenames.
 
 ### `ui/`
@@ -81,6 +86,17 @@ A future Wayland backend should be added behind the same abstraction rather than
 ## X11 clipboard lifecycle
 
 On X11, clipboard ownership normally belongs to the source process. After copy, Veilshot hides the UI and keeps the process alive until ownership changes, with a fallback timeout. This is why copy cannot always be followed by immediate process termination.
+
+## Wayland capture and clipboard lifecycle
+
+Every capture creates a new ScreenCast Portal session, so GNOME presents its
+monitor permission dialog each time. The portal returns a restricted PipeWire
+remote containing only the approved stream. A host-Python helper consumes one
+frame and transfers its PNG bytes to the Qt process over stdout.
+
+After editing, `wl-copy` owns the flattened `image/png` clipboard payload, so
+the Veilshot GUI can exit without losing the copied image. If `wl-copy` is not
+available, Qt clipboard ownership remains as a timed fallback.
 
 ## Packaging boundary
 

@@ -1,65 +1,74 @@
-# Veilshot 0.2
+# Veilshot 0.3
 
-Veilshot is a deliberately small, privacy-first screenshot tool for Linux X11.
-It captures the monitor under the pointer, lets you select a region, and offers
-only three annotation tools: arrow, translucent highlight, and opaque redaction.
-The result is copied to the clipboard by default; no file is created unless you
-explicitly save it.
+Veilshot is a deliberately small, privacy-first screenshot tool for Linux. Its
+main flow is: start capture, select a region, optionally annotate or redact, and
+copy the result. No screenshot file is created unless Save is explicitly used.
 
 ## Current scope
 
-- Pop!_OS 22.04 / GNOME on X11
-- Capture the monitor under the pointer
-- Select a region in a frozen-screen overlay
-- Arrow, rectangular highlight, opaque redaction
-- Compact colors: white, black, red, yellow, eyedropper
-- Move, resize, delete, undo, redo
-- Copy flattened PNG to the X11 clipboard
-- Save through the system file dialog
-- Pop!_OS application launcher with a temporary app icon
-- Background tray process with a separate 22 px-aware tray icon
-- Tray menu: capture and exit
-- Automatic tray start after login
-- No network, telemetry, history, settings screen, or temporary screenshots
+- Fedora Workstation / GNOME / Wayland as the primary target.
+- Pop!_OS 22.04 / GNOME / X11 compatibility retained.
+- System monitor permission dialog on every Wayland capture.
+- Frozen-screen rectangular region selection.
+- Arrow, translucent highlight, and opaque redaction.
+- White, black, red, yellow, and eyedropper colors.
+- Move, resize, delete, undo, and redo.
+- Clipboard-first flattened PNG output.
+- Standard Save As dialog for explicit PNG files.
+- Optional lightweight tray launcher and GNOME custom shortcut.
+- No network, telemetry, history, accounts, or automatic screenshot files.
 
-Wayland capture is intentionally not implemented yet.
+## Install on Fedora Workstation
 
-## Install for development
+Install the host components used for Portal, PipeWire, and the Wayland
+clipboard:
 
 ```bash
-cd veilshot
-python3 -m venv .venv
-.venv/bin/python -m pip install --upgrade pip
-.venv/bin/pip install -e '.[dev]'
+sudo dnf install python3 python3-gobject gstreamer1 pipewire-gstreamer \
+  gstreamer1-plugins-base gstreamer1-plugins-good wl-clipboard
 ```
 
-No Python package is installed globally.
+Then prepare and install Veilshot for the current user:
+
+```bash
+git clone https://github.com/kukubanana/veilshot.git
+cd veilshot
+./setup.sh
+./install-local.sh
+```
+
+The Python packages are installed only inside the repository's `.venv`.
 
 ## Run
 
 Capture a screenshot:
 
 ```bash
-.venv/bin/python -m veilshot
+~/.local/bin/veilshot
 ```
 
-Run the tray process:
+On Wayland, select one monitor in Fedora's permission dialog. Veilshot then
+shows the captured monitor, lets you select a region, and opens the compact
+editor.
+
+Other modes:
 
 ```bash
-.venv/bin/python -m veilshot --tray
+~/.local/bin/veilshot --tray
+~/.local/bin/veilshot --edit /path/to/image.png
+~/.local/bin/veilshot --version
 ```
 
-Open an existing image while developing:
+## Global shortcut
 
-```bash
-.venv/bin/python -m veilshot --edit /path/to/image.png
+Open **Settings → Keyboard → View and Customize Shortcuts → Custom Shortcuts**.
+Create a shortcut named `Veilshot` with this command:
+
+```text
+/home/YOUR_USERNAME/.local/bin/veilshot
 ```
 
-Check the version:
-
-```bash
-.venv/bin/python -m veilshot --version
-```
+`Super+Shift+S` is the suggested key combination.
 
 ## Keyboard controls
 
@@ -75,93 +84,43 @@ Check the version:
 | `Ctrl+Shift+S` | Save as PNG |
 | `Esc` | Cancel |
 
-## Install in Pop!_OS
-
-After the virtual environment exists:
+## Development and tests
 
 ```bash
-./install-local.sh
-```
-
-This creates:
-
-- `~/.local/bin/veilshot`
-- `~/.local/share/applications/veilshot.desktop`
-- `~/.config/autostart/veilshot-tray.desktop`
-- `~/.local/share/icons/hicolor/scalable/apps/veilshot.svg`
-
-It also starts the tray process immediately. On the next login, the tray starts
-automatically. The tray has only two actions: **Сделать скриншот** and **Выход**.
-
-In Pop!_OS, search the application grid for **Veilshot**. Right-click it and use
-**Add to Favorites** to pin it to the dock.
-
-For a global shortcut, open **Settings → Keyboard → Customize Shortcuts → Custom
-Shortcuts**, create a shortcut named `Veilshot`, and use:
-
-```text
-/home/YOUR_USERNAME/.local/bin/veilshot
-```
-
-A suggested key combination is `Super+Shift+S`.
-
-## Tests
-
-```bash
+./setup.sh
 QT_QPA_PLATFORM=offscreen .venv/bin/pytest
+./run-dev.sh
 ```
 
-## Design assets
-
-Temporary launcher and tray icons are included. Exact technical requirements for
-replacing them, plus toolbar icon and font specifications, are documented in
-[`DESIGN-ASSETS.md`](DESIGN-ASSETS.md).
-
-## Important X11 clipboard behavior
-
-On X11, clipboard data is normally owned by the process that copied it.
-Veilshot hides immediately, keeps the clipboard image alive invisibly, and exits
-when another process or clipboard manager takes ownership, with a 120-second
-fallback timeout.
-
-## Known limitations
-
-- X11 capture only
-- One monitor per capture: the monitor under the pointer
-- No cross-monitor selection
-- Tray visibility depends on AppIndicator/system-tray support in the desktop
-- No text, freehand drawing, blur, pixelation, OCR, or history
-- Mixed-DPI monitor setups need real-device testing
+Automated tests do not replace the real Fedora permission, capture, editor, and
+clipboard smoke test.
 
 ## Privacy
 
-Veilshot does not use the network, does not upload images, does not create
-capture files automatically, and does not log screenshot contents. Opaque
-redactions replace the underlying pixels in the flattened exported PNG.
+Wayland frames travel from the system Portal through PipeWire into memory and
+then directly into the editor. Veilshot does not create an intermediate image
+file. Copy publishes the final flattened PNG to the system clipboard. Opaque
+redactions replace the covered source pixels in that flattened result.
+
+Veilshot does not upload images, use telemetry, keep screenshot history, or
+access the network during capture.
+
+## Known limitations
+
+- Fedora asks for monitor permission on every Wayland capture by design.
+- The Fedora MVP captures one selected monitor at a time.
+- Cross-monitor region selection is not supported.
+- Mixed-DPI and multi-monitor combinations need broader testing.
+- Tray visibility on GNOME depends on AppIndicator/system-tray support; the
+  global keyboard shortcut works without a visible tray.
+- No text, freehand drawing, blur, pixelation, OCR, or screenshot history.
+
+## X11 notes
+
+The previous Qt/X11 capture backend remains available. On X11, Veilshot keeps
+the invisible process alive until another application or clipboard manager has
+taken the copied image, with a 120-second fallback timeout.
 
 ## License
 
 MIT
-
-## Troubleshooting on Pop!_OS 22.04
-
-If virtual-environment creation reports that `ensurepip` is unavailable:
-
-```bash
-sudo apt install python3-venv
-```
-
-If Qt reports that the `xcb` platform plugin cannot be loaded and specifically
-mentions `xcb-cursor`:
-
-```bash
-sudo apt install libxcb-cursor0
-```
-
-If the application launcher works but no tray icon appears, verify that Pop!_OS
-has its AppIndicator support enabled. Existing tray icons such as Telegram are a
-good practical indication that support is already active. The tray log is:
-
-```text
-${XDG_RUNTIME_DIR:-/tmp}/veilshot-tray.log
-```

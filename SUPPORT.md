@@ -19,7 +19,9 @@ cat "${XDG_RUNTIME_DIR:-/tmp}/veilshot-tray.log"
 
 ## Current support boundary
 
-The verified target is Pop!_OS 22.04 with GNOME on X11. Wayland screenshot capture is not currently supported.
+The primary verified target is Fedora Workstation 45 with GNOME on Wayland.
+Pop!_OS 22.04 GNOME X11 remains supported from the previous release. Fedora's
+monitor permission dialog appearing for every Wayland capture is expected.
 
 ## Bug reports
 

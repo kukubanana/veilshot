@@ -7,7 +7,7 @@ from PySide6.QtCore import Qt
 from PySide6.QtGui import QGuiApplication, QIcon, QImageReader, QPixmap
 from PySide6.QtWidgets import QApplication, QMessageBox
 
-from veilshot.capture.x11 import X11CaptureBackend
+from veilshot.capture import capture_backend_for_session
 from veilshot.editor.overlay import OverlayWindow
 from veilshot.resources import app_icon_path
 from veilshot.services.clipboard import ClipboardKeeper
@@ -46,7 +46,7 @@ def run(edit_path: Path | None = None) -> int:
                 clipboard_keeper=clipboard_keeper,
             )
         else:
-            capture = X11CaptureBackend.capture_screen_under_cursor()
+            capture = capture_backend_for_session().capture_screen_under_cursor()
             overlay = OverlayWindow.for_capture(
                 pixmap=capture.pixmap,
                 screen=capture.screen,
